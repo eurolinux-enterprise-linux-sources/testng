@@ -3,12 +3,15 @@
 
 Name:             testng
 Version:          6.8.7
-Release:          1%{?dist}
+Release:          3%{?dist}
 Summary:          Java-based testing framework
 # org/testng/remote/strprotocol/AbstractRemoteTestRunnerClient.java is CPL
 License:          ASL 2.0 and CPL
 URL:              http://testng.org/
-Source0:          https://github.com/cbeust/testng/archive/%{name}-%{version}.tar.gz
+# Source0 was generated using clean-tarball.sh due to possible licensing issues
+# with the original
+Source0:          %{name}-%{version}.tar.gz
+Source1:          clean-tarball.sh
 
 BuildArch:        noarch
 
@@ -39,7 +42,7 @@ Summary:          API documentation for %{name}
 This package contains the API documentation for %{name}.
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
+%setup -q
 
 # build fix for new guice
 %pom_add_dep com.google.guava:guava::provided
@@ -85,6 +88,13 @@ mv -f ANNOUNCEMENT.txt.utf8 ANNOUNCEMENT.txt
 %doc LICENSE.txt
 
 %changelog
+* Thu Jan 23 2014 Stanislav Ochotnicky <sochotnicky@redhat.com> - 6.8.7-3
+- Remove test file with unclear licensing from tarball
+- Resolves: rhbz#1055931
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 6.8.7-2
+- Mass rebuild 2013-12-27
+
 * Thu Sep 12 2013 Stanislav Ochotnicky <sochotnicky@redhat.com> - 6.8.7-1
 - Update to upstream version 6.8.7
 - Provide additional jdk15 classifier
